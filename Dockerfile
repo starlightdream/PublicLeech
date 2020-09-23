@@ -11,6 +11,7 @@ RUN sed -i.bak 's/us-west-2\.ec2\.//' /etc/apt/sources.list
 
 # to resynchronize the package index files from their sources.
 RUN apt -qq update
+RUN apt-get -qq install -y git python3 python3-pip
 
 # base required pre-requisites before proceeding ...
 RUN apt -qq install -y --no-install-recommends \
