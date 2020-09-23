@@ -1,5 +1,5 @@
 #  creates a layer from the base Docker image.
-FROM python:3.8.5-slim-buster
+FROM ubuntu:18.04
 
 WORKDIR /app
 
@@ -22,7 +22,7 @@ RUN apt -qq install -y --no-install-recommends \
     software-properties-common && \
     rm -rf /var/lib/apt/lists/* && \
     apt-add-repository non-free \
-RUN curl pv jq nginx npm
+    curl pv jq nginx npm
 # add required files to sources.list
 RUN wget -q -O - https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt | apt-key add - && \
     wget -qO - https://ftp-master.debian.org/keys/archive-key-10.asc | apt-key add -
