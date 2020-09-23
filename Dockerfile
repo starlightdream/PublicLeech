@@ -1,7 +1,8 @@
 #  creates a layer from the base Docker image.
 FROM ubuntu:18.04
 
-WORKDIR /app
+WORKDIR /usr/src/app
+RUN chmod 777 /usr/src/app
 
 # https://shouldiblamecaching.com/
 ENV PIP_NO_CACHE_DIR 1
@@ -10,11 +11,11 @@ ENV PIP_NO_CACHE_DIR 1
 RUN sed -i.bak 's/us-west-2\.ec2\.//' /etc/apt/sources.list
 
 # to resynchronize the package index files from their sources.
-RUN apt -qq update
+RUN apt-get -qq update
 RUN apt-get -qq install -y git python3 python3-pip
 
 # base required pre-requisites before proceeding ...
-RUN apt -qq install -y --no-install-recommends \
+RUN apt-get -qq install -y --no-install-recommends \
     curl \
     git \
     gnupg2 \
@@ -31,7 +32,7 @@ RUN sh -c 'echo "deb https://mkvtoolnix.download/debian/ buster main" >> /etc/ap
     sh -c 'echo deb http://deb.debian.org/debian buster main contrib non-free | tee -a /etc/apt/sources.list'
 
 # to resynchronize the package index files from their sources.
-RUN apt -qq update
+RUN apt-get -qq update
 
 # http://bugs.python.org/issue19846
 # https://github.com/SpEcHiDe/PublicLeech/pull/97
