@@ -22,7 +22,7 @@ RUN apt -qq install -y --no-install-recommends \
     software-properties-common && \
     rm -rf /var/lib/apt/lists/* && \
     apt-add-repository non-free \
-    curl pv jq nginx npm
+RUN curl pv jq nginx npm
 # add required files to sources.list
 RUN wget -q -O - https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt | apt-key add - && \
     wget -qO - https://ftp-master.debian.org/keys/archive-key-10.asc | apt-key add -
