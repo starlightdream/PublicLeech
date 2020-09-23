@@ -11,18 +11,9 @@ ENV PIP_NO_CACHE_DIR 1
 RUN sed -i.bak 's/us-west-2\.ec2\.//' /etc/apt/sources.list
 
 # to resynchronize the package index files from their sources.
-RUN apt-get -qq update
-RUN apt-get -qq install -y git python3 python3-pip \
-    locales python3-lxml aria2 \
-    curl pv jq nginx npm
+RUN apt -qq update
+
 # base required pre-requisites before proceeding ...
-RUN apt-get -qq update && \
-    apt-get install -y software-properties-common && \
-    rm -rf /var/lib/apt/lists/* && \
-    apt-add-repository non-free && \
-    apt-get -qq update && \
-    apt-get -qq install -y p7zip-full p7zip-rar aria2 curl pv jq ffmpeg locales python3-lxml && \
-    apt-get purge -y software-properties-common
 RUN apt -qq install -y --no-install-recommends \
     curl \
     git \
@@ -30,7 +21,8 @@ RUN apt -qq install -y --no-install-recommends \
     unzip \
     wget \
     software-properties-common && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    apt-add-repository non-free
 
 # add required files to sources.list
 RUN wget -q -O - https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt | apt-key add - && \
