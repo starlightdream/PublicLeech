@@ -12,8 +12,9 @@ RUN sed -i.bak 's/us-west-2\.ec2\.//' /etc/apt/sources.list
 
 # to resynchronize the package index files from their sources.
 RUN apt-get -qq update
-RUN apt-get -qq install -y git python3 python3-pip
-
+RUN apt-get -qq install -y git python3 python3-pip \
+    locales python3-lxml aria2 \
+    curl pv jq nginx npm
 # base required pre-requisites before proceeding ...
 RUN apt-get -qq install -y --no-install-recommends \
     curl \
@@ -23,8 +24,8 @@ RUN apt-get -qq install -y --no-install-recommends \
     wget \
     software-properties-common && \
     rm -rf /var/lib/apt/lists/* && \
-    apt-add-repository non-free \
-    curl pv jq nginx npm
+    apt-add-repository non-free
+
 # add required files to sources.list
 RUN wget -q -O - https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt | apt-key add - && \
     wget -qO - https://ftp-master.debian.org/keys/archive-key-10.asc | apt-key add -
