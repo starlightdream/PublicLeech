@@ -16,6 +16,13 @@ RUN apt-get -qq install -y git python3 python3-pip \
     locales python3-lxml aria2 \
     curl pv jq nginx npm
 # base required pre-requisites before proceeding ...
+RUN apt-get -qq update && \
+    apt-get install -y software-properties-common && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-add-repository non-free && \
+    apt-get -qq update && \
+    apt-get -qq install -y p7zip-full p7zip-rar aria2 curl pv jq ffmpeg locales python3-lxml && \
+    apt-get purge -y software-properties-common
 RUN apt -qq install -y --no-install-recommends \
     curl \
     git \
@@ -23,8 +30,7 @@ RUN apt -qq install -y --no-install-recommends \
     unzip \
     wget \
     software-properties-common && \
-    rm -rf /var/lib/apt/lists/* && \
-    apt-add-repository non-free
+    rm -rf /var/lib/apt/lists/*
 
 # add required files to sources.list
 RUN wget -q -O - https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt | apt-key add - && \
