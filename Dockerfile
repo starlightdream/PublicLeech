@@ -16,7 +16,7 @@ RUN apt-get -qq install -y git python3 python3-pip \
     locales python3-lxml aria2 \
     curl pv jq nginx npm
 # base required pre-requisites before proceeding ...
-RUN apt-get -qq install -y --no-install-recommends \
+RUN apt -qq install -y --no-install-recommends \
     curl \
     git \
     gnupg2 \
@@ -33,7 +33,7 @@ RUN sh -c 'echo "deb https://mkvtoolnix.download/debian/ buster main" >> /etc/ap
     sh -c 'echo deb http://deb.debian.org/debian buster main contrib non-free | tee -a /etc/apt/sources.list'
 
 # to resynchronize the package index files from their sources.
-RUN apt-get -qq update
+RUN apt -qq update
 
 # http://bugs.python.org/issue19846
 # https://github.com/SpEcHiDe/PublicLeech/pull/97
